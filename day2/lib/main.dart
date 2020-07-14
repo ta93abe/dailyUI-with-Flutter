@@ -27,11 +27,20 @@ class CreditCardCheckout extends StatelessWidget {
           Spacer(
             flex: 1,
           ),
-          Text(
-            "15 USD",
-            style: TextStyle(
-              fontSize: 30,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Total"),
+              SizedBox(
+                width: 30,
+              ),
+              Text(
+                "15 USD",
+                style: TextStyle(
+                  fontSize: 30,
+                ),
+              ),
+            ],
           ),
           Spacer(
             flex: 1,
@@ -55,32 +64,116 @@ class CreditCardCheckout extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Column(
-                  children: [
-                    Spacer(),
-                    TextField(
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        hintText: "XXXX XXXX XXXX XXXX",
-                        prefix: Text("card no."),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Spacer(),
+                      Row(
+                        children: [
+                          Text("Card No."),
+                          Spacer(),
+                          Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  hintText: "XXXX",
+                                ),
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  hintText: "XXXX",
+                                ),
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  hintText: "XXXX",
+                                ),
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  hintText: "XXXX",
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Spacer(),
-                    TextField(
-                      keyboardType: TextInputType.number,
-                      decoration:
-                          InputDecoration(hintText: "XXX", suffixText: "cvc"),
-                    ),
-                    Spacer(),
-                    TextField(
-                      decoration: InputDecoration(
-                        hintText: "XX/XX",
-                        prefix: Text("exp"),
+                      Spacer(),
+                      Row(
+                        children: [
+                          Text("CVV"),
+                          Spacer(
+                            flex: 1,
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 60),
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  hintText: "XXX",
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Spacer(),
-                  ],
+                      Spacer(),
+                      Row(
+                        children: [
+                          Text("Exp. Date"),
+                          Spacer(),
+                          Flexible(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  hintText: "MM",
+                                ),
+                              ),
+                            ),
+                          ),
+                          Text("/"),
+                          Flexible(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  hintText: "YY",
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -89,6 +182,9 @@ class CreditCardCheckout extends StatelessWidget {
             flex: 2,
           ),
           FlatButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
             color: Colors.greenAccent,
             onPressed: () {},
             child: Row(

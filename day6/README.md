@@ -4,4 +4,4 @@ User Profile
 
 ## What I wanted to do
 
-- external browse
+- external browse using url_launcher

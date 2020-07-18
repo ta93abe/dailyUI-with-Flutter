@@ -14,7 +14,6 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,14 +29,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
-final String url = "";
-
 class Player extends StatefulWidget {
   @override
   _PlayerState createState() => _PlayerState();
 }
 
 class _PlayerState extends State<Player> {
+  final String url =
+      "https://raw.githubusercontent.com/ta93abe/sample-resource-files/master/News_Room_News.mp3";
+
   AudioPlayer _audioPlayer;
   AudioPlayerState _playerState = AudioPlayerState.STOPPED;
 
@@ -50,10 +50,10 @@ class _PlayerState extends State<Player> {
   StreamSubscription _playerErrorSubscription;
   StreamSubscription _playerStateSubscription;
 
-  bool get _isPlaying => _playerState == AudioPlayerState.PLAYING;
-  String get _durationText =>
+  get _isPlaying => _playerState == AudioPlayerState.PLAYING;
+  get _durationText =>
       _duration?.toString()?.split(".")?.first?.substring(2) ?? "";
-  String get _positionText =>
+  get _positionText =>
       _position?.toString()?.split(".")?.first?.substring(2) ?? "";
 
   Future<int> _play(String url) async {
@@ -86,23 +86,15 @@ class _PlayerState extends State<Player> {
     return res;
   }
 
-  double v = 30;
-  bool isPlay = false;
-  _playSwitch() => setState(() => isPlay = !isPlay);
-
   @override
   void initState() {
     super.initState();
     _audioPlayer = AudioPlayer();
     _durationSubscription = _audioPlayer.onDurationChanged.listen(
-      (d) => setState(
-        () => _duration = d,
-      ),
+      (d) => setState(() => _duration = d),
     );
     _positionSubscription = _audioPlayer.onAudioPositionChanged.listen(
-      (p) => setState(
-        () => _position = p,
-      ),
+      (p) => setState(() => _position = p),
     );
     _playerCompleteSubscription = _audioPlayer.onPlayerCompletion.listen(
       (_) => setState(
@@ -132,6 +124,17 @@ class _PlayerState extends State<Player> {
   }
 
   @override
+  void dispose() {
+    _audioPlayer.stop();
+    _durationSubscription?.cancel();
+    _positionSubscription?.cancel();
+    _playerCompleteSubscription?.cancel();
+    _playerErrorSubscription?.cancel();
+    _playerStateSubscription?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -146,29 +149,11 @@ class _PlayerState extends State<Player> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Spacer(),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              SleekCircularSlider(
-                onChange: (value) => setState(
-                  () => v = value,
-                ),
-                appearance: CircularSliderAppearance(
-                  size: 300,
-                  customWidths: CustomSliderWidths(progressBarWidth: 10),
-                ),
-                min: 0,
-                max: 100,
-                initialValue: 30,
-              ),
-              CircleAvatar(
-                backgroundImage: AssetImage(
-                  "assets/layer.png",
-                ),
-                foregroundColor: Colors.pink,
-                radius: 100,
-              ),
-            ],
+          CircleAvatar(
+            backgroundImage: AssetImage(
+              "assets/layer.png",
+            ),
+            radius: 100,
           ),
           Spacer(),
           Text(
@@ -178,15 +163,41 @@ class _PlayerState extends State<Player> {
             ),
           ),
           Spacer(),
+          Slider(
+            label: "length",
+            activeColor: Colors.pinkAccent,
+            inactiveColor: Colors.grey,
+            onChanged: (double value) {
+              final pos = value * _duration.inMilliseconds;
+              _audioPlayer.seek(Duration(milliseconds: pos.round()));
+            },
+            value: (_position != null &&
+                    _duration != null &&
+                    _position.inMilliseconds > 0 &&
+                    _position.inMilliseconds < _duration.inMilliseconds)
+                ? _position.inMilliseconds / _duration.inMilliseconds
+                : 0,
+          ),
+          Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("00:00"),
+              _position != null
+                  ? Text(_positionText)
+                  : Container(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.pink),
+                      ),
+                    ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text("/"),
               ),
-              Text("12:34"),
+              Text(
+                _position != null ? _durationText : "",
+              ),
             ],
           ),
           Spacer(),
@@ -203,30 +214,42 @@ class _PlayerState extends State<Player> {
                 icon: Icon(
                   Icons.replay_10,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  if (_isPlaying) {
+                    _position = Duration(
+                        milliseconds: _position.inMilliseconds - 10000);
+                    _play(url);
+                  } else {
+                    _position = null;
+                  }
+                },
               ),
-              isPlay
+              _isPlaying
                   ? IconButton(
                       icon: Icon(
                         Icons.pause,
                       ),
-                      onPressed: () {
-                        _playSwitch();
-                      },
+                      onPressed: _isPlaying ? () => _pause() : null,
                     )
                   : IconButton(
                       icon: Icon(
                         Icons.play_arrow,
                       ),
-                      onPressed: () {
-                        _playSwitch();
-                      },
+                      onPressed: _isPlaying ? null : () => _play(url),
                     ),
               IconButton(
                 icon: Icon(
                   Icons.forward_10,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  if (_isPlaying) {
+                    _position = Duration(
+                        milliseconds: _position.inMilliseconds + 10000);
+                    _play(url);
+                  } else {
+                    _position = null;
+                  }
+                },
               ),
               IconButton(
                 icon: Icon(

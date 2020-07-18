@@ -4,5 +4,5 @@ Music Player
 
 ## What I wanted to do
 
-- Audioplayers package
-- Circle Slider
+- Audioplayers package (play .mp3 file)
+- Slider

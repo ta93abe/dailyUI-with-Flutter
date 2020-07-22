@@ -29,10 +29,10 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Center(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(
               child: Text(
                 "Flutter",
                 style: GoogleFonts.rockSalt(
@@ -41,12 +41,109 @@ class LandingPage extends StatelessWidget {
                 ),
               ),
             ),
+            GridPhotos(),
+            SizedBox(
+              height: 100,
+            ),
+            CallToActionButton(),
+            SizedBox(
+              height: 40,
+            ),
+            Footer(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class GridPhotos extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: 1000),
+      child: GridView(
+        padding: EdgeInsets.all(10),
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          childAspectRatio: 1 / 1,
+        ),
+        children: [
+          Container(
+            child: Image.asset(
+              "assets/dart.png",
+              fit: BoxFit.fitWidth,
+            ),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black,
+                width: 2,
+              ),
+            ),
           ),
-          SliverToBoxAdapter(
-            child: CallToActionButton(),
+          Container(
+            child: Image.asset(
+              "assets/dart_h.png",
+              fit: BoxFit.fitWidth,
+            ),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black,
+                width: 2,
+              ),
+            ),
           ),
-          SliverToBoxAdapter(
-            child: Footer(),
+          Container(
+            child: Image.asset(
+              "assets/dart_v.png",
+              fit: BoxFit.fitHeight,
+            ),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black,
+                width: 2,
+              ),
+            ),
+          ),
+          Container(
+            child: Image.asset(
+              "assets/flutter.png",
+              fit: BoxFit.fitHeight,
+            ),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black,
+                width: 2,
+              ),
+            ),
+          ),
+          Container(
+            child: Image.asset(
+              "assets/flutter_h.png",
+              fit: BoxFit.fitWidth,
+            ),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black,
+                width: 2,
+              ),
+            ),
+          ),
+          Container(
+            child: Image.asset(
+              "assets/flutter_v.png",
+              fit: BoxFit.fitHeight,
+            ),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black,
+                width: 2,
+              ),
+            ),
           ),
         ],
       ),
@@ -57,9 +154,10 @@ class LandingPage extends StatelessWidget {
 class CallToActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+    return LimitedBox(
+      maxWidth: 1000,
       child: MaterialButton(
+        padding: EdgeInsets.symmetric(horizontal: 100),
         height: 50,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),

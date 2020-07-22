@@ -30,8 +30,18 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
+  @override
+  _SignUpState createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
   final _key = GlobalKey<FormState>();
+
+  TextEditingController _emailTextController = TextEditingController();
+
+  TextEditingController _passwordTextController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +76,7 @@ class SignUp extends StatelessWidget {
                   vertical: 10,
                 ),
                 child: TextFormField(
+                  controller: _emailTextController,
                   cursorColor: Colors.white,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
@@ -95,6 +106,7 @@ class SignUp extends StatelessWidget {
                   vertical: 10,
                 ),
                 child: TextFormField(
+                  controller: _passwordTextController,
                   obscureText: true,
                   cursorColor: Colors.white,
                   decoration: InputDecoration(
@@ -122,7 +134,9 @@ class SignUp extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 30),
                 child: FlatButton(
                   padding: const EdgeInsets.symmetric(horizontal: 100),
-                  onPressed: () {},
+                  onPressed: () {
+                    print("email: ${_emailTextController.text}");
+                  },
                   color: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -180,6 +194,7 @@ class SignUp extends StatelessWidget {
                 onPressed: () {},
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       "I already have an account",

@@ -6,4 +6,5 @@ Landing Page
 
 - Flutter web
 - Animation
-- CustomScrollView
+- GridView
+- ScrollView

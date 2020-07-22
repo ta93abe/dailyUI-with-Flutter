@@ -22,6 +22,7 @@ class CreditCardCheckout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Spacer(
@@ -65,7 +66,7 @@ class CreditCardCheckout extends StatelessWidget {
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
                       Spacer(),
@@ -130,7 +131,7 @@ class CreditCardCheckout extends StatelessWidget {
                             flex: 1,
                             child: Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 60),
+                                  const EdgeInsets.symmetric(horizontal: 55),
                               child: TextField(
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
@@ -149,7 +150,7 @@ class CreditCardCheckout extends StatelessWidget {
                           Flexible(
                             child: Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 30),
+                                  const EdgeInsets.symmetric(horizontal: 26),
                               child: TextField(
                                 decoration: InputDecoration(
                                   hintText: "MM",

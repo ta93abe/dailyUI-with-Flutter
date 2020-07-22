@@ -94,7 +94,7 @@ class SocialShare extends StatelessWidget {
                               ),
                             ),
                             Spacer(),
-                            Text(
+                            SelectableText(
                               "https://ta93abe.com",
                             ),
                             Spacer(),

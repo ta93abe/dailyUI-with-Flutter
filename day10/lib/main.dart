@@ -131,16 +131,16 @@ class SocialShare extends StatelessWidget {
                                     color: Colors.white,
                                   ),
                                 ),
-                                FlatButton(
-                                  onPressed: () {},
-                                  shape: CircleBorder(),
-                                  padding: EdgeInsets.all(15),
-                                  color: Colors.red,
-                                  child: Icon(
-                                    FontAwesome.youtube_play,
-                                    color: Colors.white,
-                                  ),
-                                ),
+//                                FlatButton(
+//                                  onPressed: () {},
+//                                  shape: CircleBorder(),
+//                                  padding: EdgeInsets.all(15),
+//                                  color: Colors.red,
+//                                  child: Icon(
+//                                    FontAwesome.youtube_play,
+//                                    color: Colors.white,
+//                                  ),
+//                                ),
                               ],
                             ),
                             Spacer(),
